@@ -1,133 +1,227 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 
-interface Body {
-  readonly prog: string;
-}
-
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
 
-// Regex que reconhece funcao em javascript do tipo `function func(var1, var2)`
-// GRUPO 1: fname - nome da função
-// GRUPO 2: params - parametros separados por , (OPCIONAL)
-const func_regex =
-  /^\s*(?:(?:function)\s+)(?<fname>\w+)(?:\s*\()(?<params>(?:\s*\w+,?)*)\)/;
-// Regex que reconhece criacao de variavel com valor em javascript do tipo `let|var var_name = value|'string'|"string"|[array]`
-// GRUPO 1: vname - nome da variável
-// GRUPO 2: value - valor (OBS: arrays virão inteiras([1,2,3]))
-const var_assign_regex =
-  /^(?:let|var){1}\s+(?<vname>\w+)\s*=\s*(?<value>\w+|'\w+'|"\w+"|\[(?:\s*\w+\s*,?)*\])/;
-// Regex que reconhece declaração de variavel javascript do tipo `let|var var_name;`
-// GRUPO 1: vname - nome da variável
-const var_decl = /^(?:let|var){1}\s+(?<vname>\w+);/;
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/prog_o", (req: Request, res: Response) => {
-  const body: Body = req.body || "no data";
-  const vars_map = fill_map(body.prog);
-  console.log(vars_map);
-  res.send("Parsed program O");
+
+interface Programa {
+  readonly nome: string;
+  readonly codigo: string;
+  readonly tipo: 'o' | 'p';
+}
+
+
+//Expressões Regulares
+const isIf = /^(\s*if\s*\()/g; // if(
+const isElse = /^(\s*else\s*\{{0,1})/g; // while(
+const isChave = /\s*\}\s*/g; // Fecha chaves
+const isAtribuicao = /^((\s*(let|var|const)\s){0,1}\s*[A-Za-z_]\w*\s*=)/g; // (let|var|const) nomeVariavel =
+const pegarFimIf = /(\s*\)\s*\{{0,1})$/g; // Fim do if
+const pegarInicioIf = /^(\s*if\s*\(\s*)/g; // Início do if
+const pegarOperandos = /('|")\w*('|")|\d+(\.\d+){0,1}/g; // Operandos de uma expressão
+const pegarOperadores = /\+|\-|\*|\//g; // +|-|*|/
+const pegarString = /('|").*('|")/g; // Strings
+const pegarNomeVariavel = /[A-Za-z_]\w*/g; // Nome da variavel
+const pegarLadoEsquerdo = /^((\s*(let|var|const)\s){0,1}\s*(?<nomeVariavel>[A-Za-z_]\w*)\s*=\s*)/g; // (let|var|const) nomeVariavel =
+
+
+app.post("/programa", (request: Request, response: Response) => {
+  let programa: Programa = request.body;
+  if (programa.nome && programa.codigo && (programa.tipo === "o" || programa.tipo === "p")) {
+    let idPrograma = banco.salvarOuAtualizarPrograma(programa.nome);
+    let valorTestePrograma = salvarLinhas(programa, idPrograma);
+    banco.atualizarValorPrograma(valorTestePrograma, programa.tipo);
+
+    response.status(201).send("Programa Gravado");
+  }
+  else {
+    response.status(400).send("Dado Null");
+  }
 });
 
-app.post("/prog_p", (req: Request, res: Response) => {
-  const body: Body = req.body || "no data";
-  const vars_map = fill_map(body.prog);
-  console.log(vars_map);
-  res.send("Parsed program P");
+
+app.listen(port, async () => {
+  console.log("[server]: http://localhost:" + port);
 });
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
-});
 
-function fill_map(prog: string): Map<string, number> {
-  const vars_map = new Map<string, number>();
-  const lines = prog.split("\n");
+function salvarLinhas(programa: Programa, idPrograma: number): number {
+  let ifTrue = false;
+  let dentroIf = false;
+  let ifAtivado = false;
+  let procurandoElse = false;
 
-  for (const line of lines) {
-    const func_match = func_regex.exec(line);
-    if (func_match) {
-      const fname = func_match.groups?.fname ?? "";
-      let total = 0;
-      // Calcula valor do nome da funcao como a soma dos caracteres que o compoe
-      for (const char of fname) {
-        total += char.charCodeAt(0);
-      }
-      vars_map.set(fname, total);
-
-      const params =
-        func_match.groups?.params?.split(",").map((p) => p.trim()) ?? [];
-      for (const param of params) {
-        total = 0;
-        // Calcula valor do nome dos parametros como a soma dos caracteres que os compoe
-        for (const char of param) {
-          total += char.charCodeAt(0);
+  let valorTestePrograma = 0
+  let linhas = programa.codigo.split('\n');
+  for (let [numLinha, linha] of linhas.entries()) {
+    let idLinha = banco.salvarLinha(numLinha, programa.tipo, linha + '\n', idPrograma);
+    if ((ifAtivado && ifTrue && dentroIf) || (ifAtivado && !ifTrue && !dentroIf) || !ifAtivado) {
+      let valorTesteLinha = 0;
+      if (isAtribuicao.test(linha)) {
+        if (procurandoElse) {
+          ifAtivado = false
+          procurandoElse = false
         }
-        vars_map.set(param, total);
+        valorTesteLinha = tratarAtribuição(linha, idLinha);
       }
+      else if (isIf.test(linha)) {
+        let resultado = tratarIf(linha, idLinha);
+
+        valorTesteLinha = resultado.valorTesteLinha;
+        ifTrue = resultado.valorCondicao;
+        dentroIf = true;
+        ifAtivado = true;
+      }
+      else if (isElse.test(linha)) {
+        procurandoElse = false;
+      }
+      else if (isChave.test(linha)) {
+        if (dentroIf) {
+          dentroIf = false;
+          procurandoElse = true;
+        }
+        else {
+          ifAtivado = false;
+        }
+      }
+      valorTestePrograma += valorTesteLinha;
+      banco.updateValorLinha(valorTesteLinha);
     }
-
-    const assign_match = var_assign_regex.exec(line);
-    if (assign_match) {
-      const vname = assign_match.groups?.vname ?? "";
-
-      let value = assign_match.groups?.value ?? "";
-      let total = 0;
-      if (value.startsWith("[")) {
-        // Array
-        // Remove [ e ]
-        value = value.slice(1, -1);
-        // Separa os valores
-        const values = value.split(",").map((v) => v.trim());
-        for (const v of values) {
-          const type = typeof v.toLowerCase();
-          // Se for string, soma os caracteres
-          if (type === "string") {
-            for (const char of v) {
-              total += char.charCodeAt(0);
-            }
-            // Se for numero, soma o valor
-          } else if (type === "number") {
-            total += Number(v);
-          }
-        }
-      } else if (value.startsWith("'")) {
-        // String
-        // Remove ' e '
-        value = value.slice(1, -1);
-        // Soma os caracteres
-        for (const char of value) {
-          total += char.charCodeAt(0);
-        }
-      } else if (value.startsWith('"')) {
-        // String
-        // Remove " e "
-        value = value.slice(1, -1);
-        // Soma os caracteres
-        for (const char of value) {
-          total += char.charCodeAt(0);
-        }
-      } else if (!isNaN(Number(value))) {
-        // Numero
-        total = Number(value);
-      }
-      vars_map.set(vname, total);
+    else if (isElse.test(linha)) {
+      procurandoElse = false;
     }
-
-    const decl_match = var_decl.exec(line);
-    if (decl_match) {
-      const vname = decl_match.groups?.vname ?? "";
-      let total = 0;
-      for (const char of vname) {
-        total += char.charCodeAt(0);
+    else if (isChave.test(linha)) {
+      if (dentroIf) {
+        dentroIf = false;
+        procurandoElse = true;
       }
-      vars_map.set(vname, total);
+      else {
+        ifAtivado = false;
+      }
     }
   }
-  return vars_map;
+  return valorTestePrograma;
+}
+
+
+function tratarAtribuição(linha: string, idLinha: number): number {
+  let ladoEsquerdo = pegarLadoEsquerdo.exec(linha);
+  let ladoDireito = linha.replace(ladoEsquerdo[0], '');
+  let nomeVariavel = ladoEsquerdo?.groups?.nomeVariavel;
+
+  let strings = ladoDireito.match(pegarString);
+  let ladoDireitoSemStrings = ladoDireito
+  for (let st of strings)
+    ladoDireitoSemStrings = ladoDireitoSemStrings.replace(st, '');
+
+  let variaveisBanco = banco.buscarVariaveis(idLinha);
+  let variaveisSubstituiveis = ladoDireitoSemStrings.match(pegarNomeVariavel);
+  for (let varSubstituivel of variaveisSubstituiveis)
+    ladoDireito = ladoDireito.replace(varSubstituivel, variaveisBanco[varSubstituivel]);
+
+  let valorTesteLinha = 0;
+  let operadores = ladoDireito.match(pegarOperadores);
+  for (let operador of operadores)
+    valorTesteLinha += operador.charCodeAt(0);
+
+  let operandos = ladoDireito.match(pegarOperandos);
+  for (let operando of operandos) {
+    let valorOperando = eval(operando);
+    let tipoOperando = typeof valorOperando;
+
+    if (tipoOperando === 'number') {
+      valorTesteLinha += valorOperando;
+    }
+    else {
+      let valorTeste = 0;
+
+      for (let caracter of valorOperando)
+        valorTeste += caracter.charCodeAt(0);
+
+      valorTesteLinha += valorTeste;
+    }
+  }
+
+  let valorVariavel = eval(ladoDireito);
+  let tipoVariavel = typeof valorVariavel;
+  if (tipoVariavel === 'number') {
+    let valorTesteVariavel = valorVariavel
+
+    valorTesteLinha += valorTesteVariavel;
+    banco.salvarVariavel(nomeVariavel, valorVariavel, valorTesteVariavel);
+  }
+  else if (tipoVariavel === 'string') {
+    let valorTesteVariavel = 0;
+
+    for (let caracter of valorVariavel)
+      valorTesteVariavel += caracter.charCodeAt(0);
+
+    valorTesteLinha += valorTesteVariavel;
+    banco.salvarVariavel(nomeVariavel, valorVariavel, valorTesteVariavel);
+  }
+  else {
+    for (let [index, valorPosição] of valorVariavel.entries()) {
+      let valorTesteVariavel = 0;
+
+      if (typeof valorPosição === 'number')
+        valorTesteVariavel = valorPosição;
+      else
+        for (let caracter of valorPosição)
+          valorTesteVariavel += caracter.charCodeAt(0);
+
+      valorTesteLinha += valorTesteVariavel;
+      banco.salvarVariavel(nomeVariavel, valorPosição, valorTesteVariavel, index);
+    }
+  }
+  return valorTesteLinha;
+}
+
+
+function tratarIf(linha: string, idLinha: number): { valorTesteLinha: number, valorCondicao: boolean } {
+  let inicioIf = pegarInicioIf.exec(linha);
+  let fimIf = pegarFimIf.exec(linha);
+  let condicao = linha.replace(inicioIf[0], '').replace(fimIf[0], '');
+
+  let strings = condicao.match(pegarString);
+  let condicaoSemStrings = condicao
+  for (let st of strings)
+    condicaoSemStrings = condicaoSemStrings.replace(st, '');
+
+  let variaveisBanco = banco.buscarVariaveis(idLinha);
+  let variaveisSubstituiveis = condicaoSemStrings.match(pegarNomeVariavel);
+  for (let varSubstituivel of variaveisSubstituiveis)
+    condicao = condicao.replace(varSubstituivel, variaveisBanco[varSubstituivel]);
+
+  let valorTesteLinha = 0;
+  let operadores = condicao.match(pegarOperadores);
+  for (let operador of operadores)
+    valorTesteLinha += operador.charCodeAt(0);
+
+  let operandos = condicao.match(pegarOperandos);
+  for (let operando of operandos) {
+    let valorOperando = eval(operando);
+    let tipoOperando = typeof valorOperando;
+
+    if (tipoOperando === 'number') {
+      valorTesteLinha += valorOperando;
+    }
+    else {
+      let valorTeste = 0;
+
+      for (let caracter of valorOperando)
+        valorTeste += caracter.charCodeAt(0);
+
+      valorTesteLinha += valorTeste;
+    }
+  }
+  let valorCondicao = eval(condicao);
+  if (valorCondicao) valorTesteLinha += 1
+
+  return { valorTesteLinha, valorCondicao }
 }
