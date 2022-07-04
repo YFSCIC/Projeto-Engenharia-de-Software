@@ -9,6 +9,9 @@ app.use(express.static(__dirname + '/views'));
 app.use(express.static('public'));
 
 //rotas...
+
+/* ************* GET ************* */
+
 app.get("/", function(req, res) {
 
     var fun = [
@@ -25,6 +28,24 @@ app.get("/", function(req, res) {
     });
 
 });
+
+app.get("/home", function(req, res) {
+    res.render(__dirname + "/views/home.ejs");
+})
+
+app.get("/equipe", function(req, res) {
+    res.render(__dirname + "/views/equipe.ejs");
+})
+
+app.get("/contato", function(req, res) {
+    res.render(__dirname + "/views/contato.ejs");
+})
+
+app.get("/aplicacao", function(req, res) {
+    res.render(__dirname + "/views/aplicacao.ejs");
+})
+
+/* ************* POST ************* */
 
 app.post("/inserir", function(req, res) {
     const sql = "INSERT INTO pedidos (sabores,status, valor,pizza_key,cliente_key, quantidade, tamanho) VALUES (?, ?, ?, ?, ?,?,?)";

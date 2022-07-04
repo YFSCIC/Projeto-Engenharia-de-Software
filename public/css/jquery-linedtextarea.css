@@ -1,0 +1,49 @@
+textarea {
+    width: 100%;
+    background-color: rgb(238, 236, 236);
+    border: none;
+}
+
+.linedwrap {
+    padding-top: 0px;
+    background-color: rgb(238, 236, 236);
+    border-radius: 0px 20px 0px 0px !important;
+}
+
+.linedtextarea {
+    padding: 3px;
+    margin: 0px;
+}
+
+.linedtextarea textarea,
+.linedwrap .codelines .lineno {
+    font-size: 10pt;
+    font-family: monospace;
+    line-height: normal !important;
+}
+
+.linedtextarea textarea {
+    padding-right: 0.3em;
+    padding-top: 0em;
+    border: 0;
+}
+
+.linedwrap .lines {
+    margin-top: 0px;
+    width: 50px;
+    float: left;
+    overflow: hidden;
+}
+
+.linedwrap .codelines {
+    padding-top: 0px;
+}
+
+.linedwrap .codelines .lineno {
+    color: #fff;
+    padding-right: 0.5em;
+    padding-top: 0.03em;
+    text-align: right;
+    white-space: nowrap;
+    background-color: #EBAA0C;
+}

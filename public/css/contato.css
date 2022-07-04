@@ -1,0 +1,256 @@
+body {
+    background: #EBAA0C;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --branco: #FFF;
+}
+
+.texto {
+    width: 100%;
+    position: relative;
+    left: 38rem;
+    top: 2.3rem;
+    width: 600px;
+}
+
+p {
+    color: var(--branco);
+    font-family: sans-serif;
+    font-size: 18;
+}
+
+.container {
+    width: 390px;
+    float: left;
+    margin-left: 8rem;
+    margin-top: 4rem;
+}
+
+img {
+    width: 550px;
+    height: 550px;
+    float: right;
+    margin-right: 60px;
+    margin-top: 3rem;
+}
+
+h2 {
+    font-size: 45;
+    margin-bottom: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFF;
+    text-align: center;
+}
+
+.input-field {
+    max-width: 380px;
+    width: 100%;
+    height: 45px;
+    background-color: #fff;
+    margin: 8px 0;
+    border-radius: 55px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 0 .3rem;
+}
+
+.input-field input {
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+    position: relative;
+    top: -0.1rem;
+}
+
+.input-field input::placeholder {
+    color: #aaa;
+    font-weight: 500;
+}
+
+.input-field i {
+    text-align: center;
+    line-height: 55px;
+    color: #acacac;
+    font-size: 1.1rem;
+    position: relative;
+    top: -0.2rem;
+}
+
+button {
+    margin-top: 18px;
+    border: none;
+    border-radius: 60px;
+    padding: 8px;
+    width: 100%;
+    background: #424055;
+    font-size: 18;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-transform: uppercase;
+    z-index: 1;
+}
+
+textarea {
+    width: 100%;
+    border: none;
+    font-size: 16;
+    border-radius: 0px 32px;
+    text-indent: 5px;
+    outline: none;
+}
+
+button:hover {
+    background: #2F2E41;
+}
+
+.custom-shape-divider-bottom-1630295851 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    z-index: -1;
+}
+
+.custom-shape-divider-bottom-1630295851 svg {
+    position: relative;
+    display: block;
+    width: calc(222% + 1.3px);
+    height: 122px;
+    z-index: -1;
+}
+
+.custom-shape-divider-bottom-1630295851 .shape-fill {
+    fill: #FFFFFF;
+}
+
+
+/*Mobile */
+
+@media screen and (max-width:1227px) {
+    img {
+        width: 300px;
+        height: 300px;
+        float: right;
+        margin-right: 60px;
+        margin-top: 15rem;
+    }
+    .texto {
+        left: 35rem;
+    }
+    p {
+        font-size: 18;
+    }
+}
+
+@media screen and (max-width:1183px) {
+    .container {
+        position: relative;
+        top: -2rem;
+    }
+    .texto {
+        left: 3rem;
+    }
+    .custom-shape-divider-bottom-1630295851 {
+        display: none;
+    }
+    body {
+        height: 900px;
+    }
+}
+
+@media screen and (max-width:912px) {
+    img {
+        position: absolute;
+        top: 20rem;
+    }
+    .custom-shape-divider-bottom-1630295851 {
+        top: 50rem;
+    }
+    .texto {
+        margin-bottom: 2rem;
+    }
+}
+
+@media screen and (max-width:654px) {
+    .container {
+        margin-left: 2.6rem;
+        width: 350px;
+    }
+    .texto {
+        width: 360px;
+        left: 33px;
+    }
+    p {
+        width: 360px;
+        font-size: 15;
+        left: 33px;
+        text-align: justify;
+    }
+    .input-field {
+        height: 40px;
+    }
+    h2 {
+        margin-bottom: 2rem;
+    }
+    .input-field i {
+        position: relative;
+        top: -0.4rem;
+    }
+    .input-field input {
+        position: relative;
+        top: -0.3rem;
+    }
+    .input-field .text {
+        position: relative;
+        top: -0.6rem;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .container {
+        margin-left: 3.6rem;
+        width: 280px;
+    }
+    .texto {
+        width: 300px;
+    }
+    p {
+        width: 300px;
+        font-size: 15;
+    }
+    .input-field {
+        height: 40px;
+    }
+    h2 {
+        margin-bottom: 2rem;
+    }
+    .input-field i {
+        position: relative;
+        top: -0.4rem;
+    }
+    .input-field input::placeholder {
+        position: absolute;
+        top: -1rem;
+    }
+    .input-field .text {
+        position: relative;
+        top: -0.4rem;
+    }
+}
