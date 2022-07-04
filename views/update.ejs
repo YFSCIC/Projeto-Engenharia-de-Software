@@ -1,0 +1,27 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+
+<body>
+    <form action="/editar" method="POST" class="top1">
+        <h2 class="top">Update pedido</h2>
+        <input type="text" name="id" placeholder="Id" required><br>
+        <input type="text" name="sabores" placeholder="Sabores" required><br>
+        <select id="curso" name="tamanho" class="top botoom">
+            <option value="0">Selecione o tamanho</option>
+            <option value="Pequena">Pequena</option>
+            <option value="Média">Média</option>
+            <option value="Grande">Grande</option>
+        </select><br>
+        <input type="text" name="quantidade" placeholder="Quantidade" required><br>
+
+        <button id="teste" type="submit" class="test top">Update</button>
+    </form>
+</body>
+
+</html>

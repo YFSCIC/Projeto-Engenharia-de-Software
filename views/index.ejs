@@ -1,0 +1,382 @@
+<html lang="pt-br">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade Assícrona</title>
+    <link rel="shortcut icon" href="img/UESC.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/estilos.css">
+    <!-- Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+</head>
+
+<body>
+    <header>
+        <!--Logo-->
+        <h2>DevMax</h2>
+        <nav>
+            <ul>
+                <li> <a href="#">Contato</a></li>
+                <li> <a href="#">Quem somos</a></li>
+                <li> <a href="#">Serviços</a></li>
+                <li><a class="black" href="#">Home</a></li>
+            </ul>
+        </nav>
+        <img src="img/menu.png" alt="ícone de menu">
+    </header>
+
+    <section class="sec1">
+
+        <div class="container">
+            <h1 class="black">Um pouco de tudo do HTML5</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci nesciunt <br> doloremque aut temporibus aliquid dolorem eum quas aperiam saepe nemo rem, <br> ut placeat dolore. Laboriosam doloribus non architecto quaerat quam!
+            </p>
+        </div>
+
+        <div class="circle"></div>
+        <img src="img/dev.svg" alt="Imagem de destaque">
+
+    </section>
+
+    <section class="sec2">
+
+        <h2>Listas</h2>
+        <ol>
+            <li class="botoom"> <strong>Ordenadas</strong>
+                <ol class="espaco">
+                    <li>Ordem</li>
+                    <li>Ordem</li>
+                    <li>Ordem</li>
+                </ol>
+            </li>
+            <hr>
+            <li class="botoom"> <strong>Não odernadas</strong>
+                <ul class="espaco">
+                    <li>Ordem</li>
+                    <li>Ordem</li>
+                    <li>Ordem</li>
+                </ul>
+            </li class="botoom">
+            <hr>
+            <li> <strong>Definição</strong>
+                <dl>
+                    <dt>Listas</dt>
+                    <dd class="espaco">As listas são muito importatantes para organizar conteúdos </dd><br>
+
+                    <dt>Listas</dt>
+                    <dd class="espaco">As listas são muito importatantes para organizar conteúdos </dd>
+                </dl>
+            </li>
+        </ol>
+
+        <h2 class="top">Tabelas</h2>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Curso</th>
+                <th>Idade</th>
+            </tr>
+            <tr>
+                <td>Victor</td>
+                <td>Ciência da computação</td>
+                <td>22</td>
+            </tr>
+
+            <tr>
+                <td>Carlos</td>
+                <td>Matemática</td>
+                <td>23</td>
+            </tr>
+        </table>
+
+        <h2 class="top botoom">Form</h2>
+
+        <form action="" method="POST">
+            <input id="nome" type="text" placeholder="Nome" required><br>
+            <input id="email" type="email" placeholder="E-mail" required><br>
+            <input id="numero" type="text" placeholder="Número" required><br>
+
+            <select id="curso" class="top botoom">
+                <option value="0">Selecione um curso</option>
+                <option value="Ciência da computação">Ciência da computação</option>
+                <option value="Matemática">Matemática</option>
+                <option value="História">História</option>
+            </select><br>
+
+            <textarea name="texto" id="" cols="30" rows="8" placeholder="Digite seu texto"></textarea>
+
+            <button onclick="mostrar()" type="onsubmit">Enviar</button>
+        </form>
+
+        <h2 class="top botoom">Iframe</h2>
+
+        <div class="forma">
+            <iframe src="http://www.uesc.br/" title="Site UESC"></iframe>
+        </div>
+    </section>
+
+    <section class="sec2 top">
+        <h2 id="start">Básico de javascript</h2>
+
+        <button onclick="start()" type="button" class="top">Start</button>
+
+        <h2 class="top1">Variáveis</h2>
+
+        <h3 class="cor">Existem 3 maneiras de declarar uma variável JavaScript:</h3>
+        <ul>
+            <li>var</li>
+            <li>let</li>
+            <li>const</li>
+        </ul>
+
+        <!--VAR-->
+        <h3 class="cor top"> Vamos brincar um pouco com o VAR</h3>
+        <div class="block top1">
+            <div class="box">
+                <code><br>
+                    <span>x;</span><br>
+                    <span class="red">var</span> y;<br>
+                    <span class="red">var</span> total = x+y;<br>
+                    <span class="red">var</span> x;<br><br> 
+                </code>
+                <p id="resultado">Resultado:</p>
+            </div><br>
+            <p id="text"></p>
+            <button id="teste" onclick="teste()" type="button" class="test">Testar</button>
+        </div>
+
+        <!--LET-->
+        <h3 class="cor mar"> Vamos brincar um pouco com o LET</h3>
+        <div class="block margin">
+            <div class="box">
+                <code><br>
+                    <span>x;</span><br>
+                    <span class="red">let</span> y;<br>
+                    <span class="red">let</span> total = x+y;<br>
+                    <span class="red">let</span> x;<br><br> 
+                </code>
+                <p id="resultado2">Resultado:</p>
+            </div><br>
+            <p id="text1"></p>
+            <button id="teste" onclick="teste1()" type="button" class="test">Testar</button>
+        </div>
+
+        <!--CONST-->
+        <h3 class="cor mar"> Vamos brincar um pouco com o CONST</h3>
+        <div class="block margin">
+            <div class="box">
+                <code><br>
+                    <span class="red">const</span> x = 3;<br>
+                    <span class="red">x</span> = 1;<br><br>
+                </code>
+                <p id="resultado2">Resultado:</p>
+            </div><br>
+            <p id="text2"></p>
+            <button id="teste" onclick="teste2()" type="button" class="test">Testar</button>
+        </div>
+    </section>
+
+    <section class="sec2 margin">
+        <h2 id="start">Arrays</h2>
+
+        <!--Array-->
+        <div class="block top1">
+            <div class="box">
+                <code><br>
+                     <span class="red">var</span> x = [1,8,5,6,"Carla","Victor"];<br><br>
+                 </code>
+                <p id="resultado4">Resultado:</p>
+            </div><br><br>
+            <button id="teste" onclick="teste3()" type="button" class="test top1">Testar</button>
+        </div>
+    </section>
+
+    <section class="sec2 margin">
+        <h2 id="start">Matriz</h2>
+
+        <!--Array-->
+        <div class="block top1">
+            <div class="box">
+                <code><br>
+                    <span class="red">var</span> matriz = [ ["Carlos",9,7.5], ["Antônio",5,6.9], ["Valeria",8,9.2] ];
+                    <br><br>
+                 </code>
+                <p id="resultado5">Resultado:</p>
+            </div><br><br>
+            <button id="teste" onclick="teste4()" type="button" class="test top1">Testar</button>
+        </div>
+    </section>
+
+    <section class="sec2 margin">
+        <h2 id="start">Usando recursos JSON</h2>
+
+        <% for (var i=0; i < fun.length; i++) { %>
+            <ol>
+                <%= fun[i].nome %> -
+                    <%= fun[i].empresa %>
+            </ol>
+            <% } %>
+    </section>
+
+    <section class="sec2 top1">
+        <h2 id="start">Conexão com o banco de dados usando o Mysql</h2>
+
+        <% for (var i=0; i < dado.length; i++) { %>
+            <li>
+                <%= dado[i].tamanho %>
+            </li>
+            <% } %>
+    </section>
+
+    <section class="sec2 top1">
+        <h2 id="start">Colocando dados do banco da tabela</h2>
+
+        <!-- Tabela com pedidos -->
+        <table id="id_tabela">
+
+            <thead>
+                <tr>
+
+                    <th>Id</th>
+
+                    <th>Pedido</th>
+
+                    <th>Sabores</th>
+
+                    <th>Quantidade</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <% for (var i=0; i < dado.length; i++) { %>
+                    <tr>
+                        <td scope="row">
+                            <%= dado[i].id %>
+                        </td>
+
+                        <td>
+                            <%= dado[i].tamanho %>
+                        </td>
+
+                        <td>
+                            <%= dado[i].sabores %>
+                        </td>
+
+                        <td>
+                            <%= dado[i].quantidade %>
+                        </td>
+                    </tr>
+                    <% } %>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <!-- Fim tabela-->
+
+    <section class="sec2 top">
+
+        <h2 class="top">Inserindo dados no banco(Pizzaria)</h2>
+
+        <form action="/inserir" method="POST" class="top">
+            <h3 class="top">Informe os dados do seu pedido</h3>
+
+            <input type="text" placeholder="Sabores" name="sabores" required><br>
+            <select id="curso" class="top botoom" name="tamanho">
+                <option value="0">Selecione o tamanho</option>
+                <option value="Pizza P">Pequena</option>
+                <option value="Pizza M">Média</option>
+                <option value="Pizza G">Grande</option>
+            </select><br>
+            <input type="text" placeholder="Quantidade" name="quantidade" required><br>
+            <input class="invisivel" type="text" placeholder="valor" value="20" name="valor" required><br>
+            <input class="invisivel" type="text" placeholder="valor" value="Em andamento" name="status" required><br>
+            <input class="invisivel" type="text" placeholder="valor" value="1" name="pizza_key" required><br>
+            <input class="invisivel" type="text" placeholder="valor" value="1" name="cliente_key" required><br>
+
+
+            <button id="teste" type="submit">Inserir</button>
+        </form>
+
+        <!-- ********************* DELETE ******************* -->
+
+        <form action="/delete" method="POST" class="top1">
+            <h2 class="top1">Delete</h2>
+            <h3>Digite o id do pedido que deseja deletado</h3> <br>
+            <input type="text" name="id" placeholder="Informe o id" required>
+
+            <button id="teste" type="submit" class="test top1">Deletar</button>
+        </form>
+
+        <!-- ********************* EDITAR DADOS *********************-->
+
+        <form action="/editar" method="POST" class="top">
+            <h2 class="top1">Update</h2>
+            <h3 class="top">Informe os dados que deseja atualizar no do seu pedido</h3>
+
+            <input type="text" placeholder="Digite o id " name="id" required>
+            <input type="text" placeholder="Sabores" name="sabores" required><br>
+            <select id="curso" class="top botoom" name="tamanho">
+                <option value="0">Selecione o tamanho</option>
+                <option value="Pizza P">Pequena</option>
+                <option value="Pizza M">Média</option>
+                <option value="Pizza G">Grande</option>
+            </select><br>
+            <input type="text" placeholder="Quantidade" name="quantidade" required><br>
+
+            <button id="teste" type="submit">Editar</button>
+        </form>
+
+
+    </section>
+
+    <footer>
+        <p>Victor Santana- Programação para apliacações web 2021</p>
+    </footer>
+
+
+    <!--  jQuery  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!--Tabela-->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+    <!--Nomes das estruturas da tabela-->
+    <script>
+        $(document).ready(function() {
+            $('#id_tabela').DataTable({
+                "language": {
+                    "lengthMenu": "Exibindo _MENU_ registros por página",
+                    "zeroRecords": "Nenhum registro encontrado",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registro disponível",
+                    "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    }
+
+                }
+            });
+        });
+    </script>
+
+    <!--Scripts js-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/form.js"></script>
+</body>
+
+</html>

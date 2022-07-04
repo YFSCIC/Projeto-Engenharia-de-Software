@@ -1,0 +1,153 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Software</title>
+
+    <!-- Boostrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="/">
+                <img src="img/logo.png" class="logo" alt="Logo tech">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a id="cor" class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/equipe">Equipe</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Soluções</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aplicacao">Iniciar Teste</a>
+                    </li>
+                    <li class="nav-item bottom">
+                        <a id="contato" class="nav-link" href="/contato">Contato</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="container">
+        <!-- Imagem-->
+        <img data-aos="zoom-in" class="ilustracao" src="img/banner.svg" alt="Imagem decorativa">
+
+        <!-- Textos -->
+        <div data-aos="zoom-in" class="jubotrom">
+            <h1>Teste de software <span>MAX</span></h1>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis nesciunt sapiente illo dolorum exercitationem nostrum facere amet officiis beatae natus vitae id, assumenda reiciendis nisi esse magni sit provident aperiam.
+            </p>
+        </div>
+
+        <!-- Shape for page-->
+        <div class="custom-shape-divider-bottom-1655144624">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section class="container-2">
+        <div class="forma">
+            <br>
+            <div data-aos="zoom-in" class="texto">
+                <h2 class="titulo white">Motivação</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem esse, ducimus tempora facilis aut, culpa repellat harum eaque dolorem voluptatem aspernatur? Non commodi illum, voluptates at eos maiores libero laboriosam? Lorem ipsum dolor
+                    sit amet consectetur adipisicing elit. Similique, voluptas sequi? Inventore, voluptatum perspiciatis. Hic ipsa, voluptate quibusdam tempora velit iste minima molestiae facere accusamus deleniti vel eaque deserunt delectus?
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container margin-top">
+            <h2 data-aos="zoom-in-right" class="titulo cor-principal">Realize seus testes de forma rápida e eficiente <img src="img/rocket.png" alt="Ícone foguete"></h2>
+
+            <img data-aos="zoom-in-right" class="imagem-programador" src="img/programador.png" alt="Imagem ilustratica programador">
+
+            <div data-aos="zoom-in-left" class="conjuto-texto">
+                <h3>Vantagens</h3>
+                <ul>
+                    <li>Velocidade</li>
+                    <li>Facilidade</li>
+                    <li>Confiabilidade</li>
+                </ul>
+            </div>
+
+            <a data-aos="zoom-in-down" class="btn" href="/aplicacao">COMECE AGORA</a>
+
+        </div>
+    </section>
+
+    <section>
+        <div class="box-container">
+            <div data-aos="zoom-out-down" class="card">
+                <img class="img-card" src="img/mulher.png" alt="Imagem decorativa">
+                <h2 class="h2-card">Carla Santos</h2>
+                <p class="p-card">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, accusamus tempore! Culpa ut autem voluptates, temporibus aperiam sapiente cupiditate eligendi magni ad sunt. Iusto ipsa possimus, eos animi aut eligendi!
+                </p>
+            </div>
+
+            <div data-aos="zoom-out-down" class="card">
+                <img class="img-card" src="img/homem.png" alt="Imagem decorativa">
+                <h2 class="h2-card">Joaquim Bezerra</h2>
+                <p class="p-card">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, accusamus tempore! Culpa ut autem voluptates, temporibus aperiam sapiente cupiditate eligendi magni ad sunt. Iusto ipsa possimus, eos animi aut eligendi!
+                </p>
+            </div>
+
+            <div data-aos="zoom-out-down" class="card">
+                <img class="img-card" src="img/mulher-livro.png" alt="Imagem decorativa">
+                <h2 class="h2-card">Elisa Cardoso</h2>
+                <p class="p-card">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, accusamus tempore! Culpa ut autem voluptates, temporibus aperiam sapiente cupiditate eligendi magni ad sunt. Iusto ipsa possimus, eos animi aut eligendi!
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer>
+        <p class="footer-p"><span id="ano"></span> © UESC - Engenharia de Software</p>
+    </footer>
+
+    <script>
+        var data = new Date()
+        data = data.getFullYear()
+
+        document.getElementById('ano').innerHTML = data
+    </script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
