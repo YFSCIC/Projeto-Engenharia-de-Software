@@ -29,8 +29,8 @@ const isIf = /^(\s*if\s*\()/g; // if(
 const isElse = /^(\s*else\s*\{?)/g; // while(
 const isChave = /\s*\}\s*/g; // Fecha chaves
 const isAtribuicao = /^((\s*(let|var|const)\s)?\s*[A-Za-z_]\w*\s*=)/; // (let|var|const) nomeVariavel =
-const pegarFimIf = /(\s*\)\s*\{?)$/g; // Fim do if
-const pegarInicioIf = /^(\s*if\s*\(\s*)/g; // Início do if
+const pegarFimIf = /(\s*\)\s*\{?)$/; // Fim do if
+const pegarInicioIf = /^(\s*if\s*\(\s*)/; // Início do if
 const pegarOperandos = /(['"])\w*(['"])|\d+(\.\d+)?/g; // Operandos de uma expressão
 const pegarOperadores = /\+|\-|\*\//g; // +|-|*|/
 const pegarString = /(['"]).*(['"])/g; // Strings
@@ -43,7 +43,6 @@ app.post("/programa", async (request: Request, response: Response) => {
 
   if (programa?.programa_o || programa?.programa_p) {
     programa.nome = programa.nome ?? "nome" + randomInt(9999);
-    console.log(programa);
     // PROG O
     const idPrograma = await banco.salvarOuAtualizarPrograma(programa.nome);
     const valorTesteProgramaO = await salvarLinhas(
@@ -199,6 +198,8 @@ async function tratarAtribuição(
     }
 
     valorTesteLinha += valorTesteVariavel;
+    valorVariavel = `"${valorVariavel}"`;
+
     await banco.salvarVariavel(
       nomeVariavel,
       valorVariavel,
@@ -247,11 +248,12 @@ async function tratarIf(
 
   const variaveisBanco = await banco.buscarVariaveis(idLinha);
   const variaveisSubstituiveis = condicaoSemStrings.match(pegarNomeVariavel);
-  for (const varSubstituivel of variaveisSubstituiveis ?? [])
+  for (const varSubstituivel of variaveisSubstituiveis ?? []) {
     condicao = condicao.replace(
       varSubstituivel,
       variaveisBanco[varSubstituivel]
     );
+  }
 
   let valorTesteLinha = 0;
   const operadores = condicao.match(pegarOperadores);
